@@ -1,6 +1,6 @@
 package Linked_list_package;
 
-public class Impl_SingLinkList {
+public class LinkedList_loops {
 	
 	private ListNode head;
 	
@@ -147,7 +147,7 @@ public class Impl_SingLinkList {
 		}
 	}
 	
-	public void reverse(ListNode head1, Impl_SingLinkList sll1)
+	public void reverse(ListNode head1, LinkedList_loops sll1)
 	{
 		if(head1 == null)
 		{
@@ -288,70 +288,79 @@ public class Impl_SingLinkList {
 			System.out.println("deleted "+key);
 		}
 	}
+	
+	public ListNode containsLoop()
+	{
+		ListNode slowPtr = head;
+		ListNode fastPtr = head;
 		
+		while(fastPtr!=null && fastPtr.next!=null)
+		{
+			fastPtr=fastPtr.next.next;
+			slowPtr=slowPtr.next;
+			
+			if(fastPtr==slowPtr)
+			{
+				System.out.println("Loop found; slowPtr & fastPtr coincided at: "+slowPtr.data);
+				return slowPtr;
+			}
+		}
+		System.out.println("No loop found!");
+		return null;
+	}
+	
+	public ListNode getStartingNode(ListNode kk)
+	{
+		ListNode currentPtr = head;
+		ListNode slowPtr = kk;
+		
+		while(slowPtr!=currentPtr)
+		{
+			slowPtr=slowPtr.next;
+			currentPtr=currentPtr.next;
+			if(slowPtr==currentPtr)
+			{
+				System.out.println("Found the starting node of loop through Floid's algorithm : "+ slowPtr.data);
+				return slowPtr;
+			}
+		}
+		return null;
+	}
+	
+	public void removeLoop(ListNode meet)
+	{
+		ListNode temp = head;
+		
+		while(temp.next!=meet.next)
+		{
+			temp=temp.next;
+			meet=meet.next;
+		}
+		System.out.println("Successfully removed loop...");
+		meet.next=null;
+	}
 		
 	public static void main(String args[]) {
-		Impl_SingLinkList sll = new Impl_SingLinkList();
-		sll.head = new ListNode(10);
-		ListNode second = new ListNode(20);
-		ListNode third = new ListNode(30);
-		ListNode forth = new ListNode(40);
-			
+		LinkedList_loops sll = new LinkedList_loops();
+		sll.head = new ListNode(1);
+		ListNode second = new ListNode(2);
+		ListNode third = new ListNode(3);
+		ListNode forth = new ListNode(4);
+		ListNode fifth = new ListNode(5);
+		ListNode sixth = new ListNode(6);
+
 		sll.head.next = second;
 		second.next = third;
 		third.next = forth;
+		forth.next=fifth;
+		fifth.next=sixth;
+		sixth.next=third;
 		
-		sll.insertFirst(111);
-		sll.insertFirst(222);
-		sll.insertFirst(333);
-		
-		sll.insertLast(777);
-		sll.insertLast(888);
-		sll.insertLast(999);
-		
+		ListNode meet = sll.containsLoop();
+		sll.getStartingNode(meet);
+		sll.removeLoop(meet);
 		sll.display(sll.head);
 		
-		sll.length();
-		
-		sll.insert(321,11);
-		sll.display(sll.head);
-		sll.length();
-		
-		System.out.println("The deleted node is: "+ sll.deleteFirst().data);
-		sll.display(sll.head);
-		System.out.println("The deleted node is: "+ sll.deleteLast().data);
-		sll.display(sll.head);
-		System.out.println("The deleted node is: "+ sll.delete(3).data);
-		sll.display(sll.head);
-		
-		if(sll.find(sll.head, 111))
-		{
-			System.out.println("The given element is present in the linked list");
-		}
-		else
-		{
-			System.out.println("The given element is NOT present in the linked list");
-		}
-		
-		sll.reverse(sll.head, sll);
-		sll.display(sll.head);
-		
-		
-		System.out.println("The middle node of the linked list is : "+sll.getMiddleNode().data);
-
-		System.out.println("Getting nth node from end...."+sll.getNthNodeFromEnd(2).data);
-		
-		sll.insertLast(55);
-		sll.insertLast(55);
-		sll.insertLast(55);
-		sll.display(sll.head);
-		sll.removeDuplicatesSorted();
-		sll.display(sll.head);
-		
-		sll.insertInSortedList(24);
-		sll.display(sll.head);
-		
-		sll.deleteNode(24);
-		sll.display(sll.head);
+				
 		}			
 }
