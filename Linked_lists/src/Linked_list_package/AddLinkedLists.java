@@ -26,38 +26,6 @@ public class AddLinkedLists {
 		System.out.print("null\n");
 	}
 
-	public static ListNode merge(ListNode aa, ListNode bb)
-	{
-		ListNode dummy = new ListNode(0);
-		ListNode tail = dummy;
-		
-		while(aa!=null && bb!=null)
-		{
-			if(aa.data<bb.data)
-			{
-				tail.next=aa;
-				tail=tail.next;
-				aa=aa.next;
-			}
-			else
-			{
-				tail.next=bb;
-				tail=tail.next;
-				bb=bb.next;
-			}
-			
-			if(aa==null)
-			{
-				tail.next = bb;
-			}
-			if(bb==null)
-			{
-				tail.next = aa;
-			}
-		}
-		return dummy.next;
-	}
-	
 	public static ListNode add(ListNode aa, ListNode bb)
 	{
 		ListNode dummy = new ListNode(0);

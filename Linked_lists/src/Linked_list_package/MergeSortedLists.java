@@ -35,26 +35,27 @@ public class MergeSortedLists {
 		{
 			if(aa.data<bb.data)
 			{
-				tail.next=aa;
+				tail.next=new ListNode(aa.data); // create a new node else the original linkedList will change
 				tail=tail.next;
 				aa=aa.next;
 			}
 			else
 			{
-				tail.next=bb;
+				tail.next=new ListNode(bb.data);
 				tail=tail.next;
 				bb=bb.next;
 			}
 			
 			if(aa==null)
 			{
-				tail.next = bb;
+				tail.next = new ListNode(bb.data);
 			}
 			if(bb==null)
 			{
-				tail.next = aa;
+				tail.next = new ListNode(aa.data);
 			}
 		}
+		System.out.println("dummy.next : "+dummy.next);
 		return dummy.next;
 	}
 
